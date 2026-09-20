@@ -20,7 +20,6 @@
 #include "MotionMaster.h"
 #include "ScriptedCreature.h"
 #include "WaypointMovementGenerator.h"
-#include "Log.h"
 
 enum eAgitatedEarthSpirit
 {
