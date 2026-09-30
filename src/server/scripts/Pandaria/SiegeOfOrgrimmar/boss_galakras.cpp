@@ -1088,7 +1088,7 @@ struct npc_galakras_tower_defender : public ScriptedAI
             m_Defender = TowerDefenders::DEFENDER_NONE;
         }
 
-        void SetData(uint32 type, uint32 data)
+        void SetData(uint32 type, uint32 /*data*/)
         {
             if (type == DATA_LEFT_TOWER_DEFENDER)
             {
@@ -2170,7 +2170,7 @@ class npc_galakras_healing_tide_totem : public CreatureScript
                 me->AddAura(SPELL_HEALING_TIDE_AURA, me);
             }
 
-            void UpdateAI(const uint32 diff)
+            void UpdateAI(const uint32 /*diff*/)
             {
 
             }
@@ -2192,7 +2192,7 @@ class npc_galakras_anti_air_turret : public CreatureScript
         }
 
         // prevent menu
-        bool OnGossipHello(Player* player, Creature* creature) override
+        bool OnGossipHello(Player* /*player*/, Creature* /*creature*/) override
         {
             return true;
         }
@@ -2267,7 +2267,7 @@ class npc_galakras_anti_air_turret : public CreatureScript
                 }
             }
 
-            void SetData(uint32 type, uint32 data) override
+            void SetData(uint32 type, uint32 /*data*/) override
             {
                 if (type == DATA_LEFT_TOWER_DEFENDER)
                 {
@@ -2363,7 +2363,7 @@ class npc_galakras_tower : public CreatureScript
                 return 0;
             }
 
-            void DamageTaken(Unit* who, uint32& damage) override
+            void DamageTaken(Unit* /*who*/, uint32& damage) override
             {
                 damage = 0;
             }
@@ -2555,7 +2555,7 @@ class npc_galakras_korkron_demolisher : public CreatureScript
                 events.ScheduleEvent(EVENT_MOVE_TO_ATTACK, 500);
             }
 
-            void SetData(uint32 type, uint32 data)
+            void SetData(uint32 type, uint32 /*data*/)
             {
                 if (type == DATA_LEFT_TOWER_ATTACKER)
                 {
@@ -2692,7 +2692,7 @@ class spell_galakras_crushers_call_aoe : public SpellScriptLoader
         {
             PrepareSpellScript(spell_galakras_crushers_call_aoe_SpellScript);
 
-            void HandleHitTarget(SpellEffIndex effIndex)
+            void HandleHitTarget(SpellEffIndex /*effIndex*/)
             {
                 if (!GetCaster() || !GetHitUnit())
                     return;
@@ -2723,7 +2723,7 @@ class spell_galakras_anti_air_cannon_aura : public SpellScriptLoader
         {
             PrepareAuraScript(spell_galakras_anti_air_cannon_aura_AuraScript);
 
-            void HandleApply(AuraEffect const* aurEff, AuraEffectHandleModes mode)
+            void HandleApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
             {
                 if (!GetUnitOwner())
                     return;
@@ -2767,7 +2767,7 @@ class spell_galakras_tower_strength : public SpellScriptLoader
         {
             PrepareAuraScript(spell_galakras_tower_strength_AuraScript);
 
-            void HandlePeriodicTick(AuraEffect const* aurEff)
+            void HandlePeriodicTick(AuraEffect const* /*aurEff*/)
             {
                 if (!GetUnitOwner())
                     return;
@@ -2825,7 +2825,7 @@ class spell_galakras_tidal_wave_aoe : public SpellScriptLoader
                 Trinity::Containers::RandomResize(targets, 1);
             }
 
-            void HandleHitTarget(SpellEffIndex effIndex)
+            void HandleHitTarget(SpellEffIndex /*effIndex*/)
             {
                 if (!GetCaster() || !GetHitUnit())
                     return;
@@ -2951,7 +2951,7 @@ struct spell_area_galakras_flames_of_galakrond : AreaTriggerAI
         }
     }
 
-    void OnUnitExit(Unit* target) override
+    void OnUnitExit(Unit* /*target*/) override
     {
         Unit* caster = at->GetCaster();
         if (!caster)

@@ -3969,7 +3969,7 @@ class spell_paragons_of_the_klaxxi_fiery_edge : public SpellScriptLoader
                 }
             }
 
-            void HandleHitTarget(SpellEffIndex effIndex)
+            void HandleHitTarget(SpellEffIndex /*effIndex*/)
             {
                 if (!GetCaster() || !GetHitUnit())
                     return;
