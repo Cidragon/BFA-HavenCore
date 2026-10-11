@@ -672,6 +672,15 @@ StrictPetNames = 0
 DBC.Locale = 0
 
 #
+#    LoadLocales
+#        Description: Space-separated locales to load from DB2, hotfix and world locale tables.
+#                     DBC.Locale is always included. Leave empty to load all available locales.
+#        Example:     "enUS frFR"
+#        Default:     ""
+
+LoadLocales = ""
+
+#
 #    DeclinedNames
 #        Description: Allow Russian clients to set and use declined names.
 #        Default:     0 - (Disabled, Except when the Russian RealmZone is set)

@@ -16,6 +16,7 @@
  */
 
 #include "DB2Stores.h"
+#include "Config.h"
 #include "Containers.h"
 #include "DatabaseEnv.h"
 #include "DB2LoadInfo.h"
@@ -612,6 +613,22 @@ uint32 DB2Manager::LoadStores(std::string const& dataPath, LocaleConstant defaul
 
     if (!availableDb2Locales[defaultLocale])
         return 0;
+
+    std::string localesConfig = sConfigMgr->GetStringDefault("LoadLocales", "");
+    if (!localesConfig.empty())
+    {
+        std::bitset<TOTAL_LOCALES> requestedLocales;
+        requestedLocales[defaultLocale] = true;
+        for (char const* token : Tokenizer(localesConfig, ' ', 0, false))
+        {
+            LocaleConstant locale = GetLocaleByName(token);
+            if (IsValidLocale(locale))
+                requestedLocales[locale] = true;
+            else
+                TC_LOG_ERROR("server.loading", "LoadLocales contains invalid locale name '%s', ignored.", token);
+        }
+        availableDb2Locales &= requestedLocales;
+    }
 
 #define LOAD_DB2(store) LoadDB2(availableDb2Locales, loadErrors, _stores, &store, db2Path, defaultLocale, GetCppRecordSize(store))
 

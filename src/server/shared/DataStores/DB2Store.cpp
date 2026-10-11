@@ -120,6 +120,10 @@ bool DB2StorageBase::LoadStringsFrom(std::string const& path, uint32 locale, cha
     if (!indexTable)
         return false;
 
+    // Stores without localized string fields need no locale file parsing.
+    if (!_loadInfo->GetStringFieldCount(true))
+        return true;
+
     DB2FileLoader db2;
     DB2FileSystemSource source(path + _fileName);
     // Check if load was successful, only then continue
@@ -127,9 +131,8 @@ bool DB2StorageBase::LoadStringsFrom(std::string const& path, uint32 locale, cha
         return false;
 
     // load strings from another locale db2 data
-    if (_loadInfo->GetStringFieldCount(true))
-        if (char* stringBlock = db2.AutoProduceStrings(indexTable, _indexTableSize, locale))
-            _stringPool.push_back(stringBlock);
+    if (char* stringBlock = db2.AutoProduceStrings(indexTable, _indexTableSize, locale))
+        _stringPool.push_back(stringBlock);
 
     return true;
 }
