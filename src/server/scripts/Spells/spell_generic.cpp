@@ -5022,7 +5022,7 @@ public:
         void HandleOnCast()
         {
             if (Unit* caster = GetCaster())
-                caster->GetMotionMaster()->MoveJump(1273.716f, 1039.498f, 434.867f, 20.0f, 15.0f, 0.966f);
+                caster->GetMotionMaster()->MoveJump(1273.716f, 1039.498f, 434.867f, 0.966f, 20.0f, 15.0f, GetSpellInfo()->Id, false);
         }
 
         void Register() override
@@ -5404,7 +5404,7 @@ public:
                 float dist = position->GetExactDist2d(player->GetPositionX(), player->GetPositionY());
                 float speedXY = dist;
 
-                player->GetMotionMaster()->MoveJump(position->GetPositionX(), position->GetPositionY(), position->GetPositionZ(), speedXY, speedZ);
+                player->GetMotionMaster()->MoveJump(position->GetPositionX(), position->GetPositionY(), position->GetPositionZ(), position->GetOrientation(), speedXY, speedZ);
             }
         }
 
