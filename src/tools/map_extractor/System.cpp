@@ -32,6 +32,7 @@
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
 #include <bitset>
+#include <algorithm>
 #include <cstdio>
 #include <deque>
 #include <fstream>
@@ -533,6 +534,8 @@ bool ConvertADT(ChunkedFile& adt, std::string const& mapName, std::string const&
     memset(liquid_show, 0, sizeof(liquid_show));
     memset(liquid_flags, 0, sizeof(liquid_flags));
     memset(liquid_entry, 0, sizeof(liquid_entry));
+    // The liquid rectangle can include the last row and column, which the later loop does not reset.
+    std::fill_n(&liquid_height[0][0], (ADT_GRID_SIZE + 1) * (ADT_GRID_SIZE + 1), CONF_use_minHeight);
 
     memset(holes, 0, sizeof(holes));
 
@@ -910,7 +913,8 @@ bool ConvertADT(ChunkedFile& adt, std::string const& mapName, std::string const&
         }
     }
 
-    map_liquidHeader liquidHeader;
+    // Some liquid-header fields are only assigned on one branch but are always written to disk.
+    map_liquidHeader liquidHeader = {};
 
     // no water data (if all grid have 0 liquid type)
     if (firstLiquidFlag == 0 && !fullType)
