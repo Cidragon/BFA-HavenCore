@@ -473,7 +473,8 @@ uint8 LFGListMgr::GetMemeberCountInGroupIncludingInvite(LFGListEntry* entry)
 
 uint8 LFGListMgr::CountEntryApplicationsWithStatus(LFGListEntry* entry, LFGListApplicationStatus status)
 {
-    return static_cast<uint8>(std::count_if(entry->ApplicationsContainer.begin(), entry->ApplicationsContainer.end(), [&](std::pair<uint32, LFGListEntry::LFGListApplicationEntry> const& itr)
+    // The application map uses a 64-bit key; a uint32 pair would copy and narrow each entry.
+    return static_cast<uint8>(std::count_if(entry->ApplicationsContainer.begin(), entry->ApplicationsContainer.end(), [&](auto const& itr)
     {
         return itr.second.ApplicationStatus == status;
     }));
