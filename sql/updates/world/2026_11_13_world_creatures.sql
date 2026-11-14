@@ -47,7 +47,7 @@ INSERT INTO waypoint_data (id, `point`, position_x, position_y, position_z, orie
 DELETE FROM creature WHERE guid=214315 AND id=874;
 -- Remove junk values
 DELETE FROM creature_addon WHERE guid=214315;
-DELETE FROM waypoints_data WHERE id=214315;
+DELETE FROM waypoint_data WHERE id=214315;
 
 -- Set waypoint_data movement
 UPDATE creature SET MovementType=2 WHERE guid=215302 AND id=874;
